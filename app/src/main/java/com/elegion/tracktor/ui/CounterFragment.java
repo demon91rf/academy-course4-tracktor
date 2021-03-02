@@ -1,9 +1,6 @@
 package com.elegion.tracktor.ui;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -36,9 +33,6 @@ public class CounterFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_counter, container, false);
         ButterKnife.bind(this, view);
-
-        /*tvTime.setText("Временный текст");
-        tvDistance.setText("Временный текст");*/
 
         viewModel = ViewModelProviders.of(this).get(CounterViewModel.class);
         viewModel.getTimeText().observe(this, s -> tvTime.setText(s));
