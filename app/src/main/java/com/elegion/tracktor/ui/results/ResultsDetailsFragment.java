@@ -44,9 +44,6 @@ public class ResultsDetailsFragment extends Fragment implements OnMapReadyCallba
     @BindView(R.id.tvDistance)
     TextView mDistanceText;
 
-    @BindView(R.id.mapView)
-    MapView mMapView;
-
     private GoogleMap mMap;
     private List<LatLng> mRoute;
 
@@ -77,7 +74,13 @@ public class ResultsDetailsFragment extends Fragment implements OnMapReadyCallba
         mTimeText.setText(StringUtil.getTimeText(time));
         mDistanceText.setText(StringUtil.getDistanceText(distance));
 
-        mMapView.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.mapContainer);
+        if (mapFragment == null){
+            mapFragment = SupportMapFragment.newInstance();
+            mapFragment.setRetainInstance(true);
+            getChildFragmentManager().beginTransaction().replace(R.id.mapContainer, mapFragment).commit();
+            mapFragment.getMapAsync(this);
+        }
     }
 
     @Override
@@ -85,11 +88,8 @@ public class ResultsDetailsFragment extends Fragment implements OnMapReadyCallba
         mMap = googleMap;
         mMap.addPolyline(new PolylineOptions().addAll(mRoute));
 
-        LatLng startPosition = new LatLng(mRoute.get(0).latitude, mRoute.get(0).longitude);
-        mMap.addMarker(new MarkerOptions().position(startPosition).title(getString(R.string.start)));
-
-        LatLng endPosition = new LatLng(mRoute.get(mRoute.size() - 1).latitude, mRoute.get(mRoute.size() - 1).longitude);
-        mMap.addMarker(new MarkerOptions().position(endPosition).title(getString(R.string.end)));
+        mMap.addMarker(new MarkerOptions().position(mRoute.get(0)).title(getString(R.string.start)));
+        mMap.addMarker(new MarkerOptions().position(mRoute.get(mRoute.size() - 1)).title(getString(R.string.end)));
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (LatLng point : mRoute) {
