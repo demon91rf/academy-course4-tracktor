@@ -115,20 +115,13 @@ public class MainActivity extends AppCompatActivity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStartRoute(StartRouteEvent event) {
         mMap.clear();
-        LatLng lastPosition = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(lastPosition).title(getString(R.string.start)));
         isRouteStarted = true;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStopRoute(StopRouteEvent event) {
         isRouteStarted = false;
-
-        List<LatLng> route = event.getRoute();
-        mMap.addMarker(new MarkerOptions().position(route.get(route.size() - 1)).title(getString(R.string.end)));
-
         Toast.makeText(this, "В будущем, Ваш маршрут будет сохранен!", Toast.LENGTH_SHORT).show();
-
         ResultsActivity.start(this, event.getDistance(), event.getTime(), event.getRoute());
     }
 
