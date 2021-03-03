@@ -14,7 +14,6 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.elegion.tracktor.R;
-import com.elegion.tracktor.event.GetRouteEvent;
 import com.elegion.tracktor.event.StartRouteEvent;
 import com.elegion.tracktor.event.StopRouteEvent;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -123,9 +122,7 @@ public class MainActivity extends AppCompatActivity
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStopRoute(StopRouteEvent event) {
-        EventBus.getDefault().post(new GetRouteEvent(mRoute));
         isRouteStarted = false;
-
         Toast.makeText(this, "В будущем, Ваш маршрут будет сохранен!", Toast.LENGTH_SHORT).show();
     }
 

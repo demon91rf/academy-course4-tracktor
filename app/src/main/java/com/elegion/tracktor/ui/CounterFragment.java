@@ -1,9 +1,6 @@
 package com.elegion.tracktor.ui;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,14 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.elegion.tracktor.R;
-import com.elegion.tracktor.event.GetRouteEvent;
-import com.elegion.tracktor.event.StartRouteEvent;
-import com.elegion.tracktor.event.StopRouteEvent;
 import com.elegion.tracktor.viewmodel.CounterViewModel;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,22 +43,6 @@ public class CounterFragment extends Fragment {
         viewModel.getStopEnabled().observe(this, buttonStop::setEnabled);
 
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        EventBus.getDefault().register(this);
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        EventBus.getDefault().unregister(this);
-        super.onPause();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGetRoute(GetRouteEvent event) {
     }
 
     @SuppressLint("CheckResult")
