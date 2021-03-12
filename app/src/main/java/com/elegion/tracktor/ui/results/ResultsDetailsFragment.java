@@ -28,7 +28,7 @@ public class ResultsDetailsFragment extends Fragment {
 
     @BindView(R.id.tvTime) TextView mTimeText;
     @BindView(R.id.tvDistance) TextView mDistanceText;
-    @BindView(R.id.ivScreenshot) ImageView mScreenshotImage;
+    @BindView(R.id.ivScreenshot) ImageView mImage;
 
     public static ResultsDetailsFragment newInstance(Bundle bundle) {
         Bundle args = new Bundle();
@@ -55,6 +55,6 @@ public class ResultsDetailsFragment extends Fragment {
 
         mTimeText.setText(StringUtil.getTimeText(time));
         mDistanceText.setText(StringUtil.getDistanceText(distance));
-        mScreenshotImage.setImageBitmap(ScreenshotMaker.fromBase64(getArguments().getString(SCREENSHOT_KEY)));
+        mImage.setImageBitmap(ScreenshotMaker.fromBase64(getArguments().getString(SCREENSHOT_KEY)));
     }
 }

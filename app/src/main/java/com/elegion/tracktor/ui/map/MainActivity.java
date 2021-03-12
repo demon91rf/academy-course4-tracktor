@@ -130,10 +130,10 @@ public class MainActivity extends AppCompatActivity
         List<LatLng> route = event.getRoute();
         mMap.addMarker(new MarkerOptions().position(route.get(route.size() - 1)).title(getString(R.string.end)));
 
-        takeMapScreenshot(route, bitmap -> ResultsActivity.start(this, event.getDistance(), event.getTime(), bitmap));
+        takeScreenshot(route, bitmap -> ResultsActivity.start(this, event.getDistance(), event.getTime(), bitmap));
     }
 
-    private void takeMapScreenshot(List<LatLng> route, GoogleMap.SnapshotReadyCallback snapshotCallback) {
+    private void takeScreenshot(List<LatLng> route, GoogleMap.SnapshotReadyCallback snapshotCallback) {
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (LatLng point : route) {
             builder.include(point);
